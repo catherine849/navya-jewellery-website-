@@ -1,0 +1,21 @@
+import Razorpay from "razorpay";
+
+export default async function handler(req, res) {
+  const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
+  });
+
+  const options = {
+    amount: 50000, // amount in paise (₹500 example — will be dynamic later)
+    currency: "INR",
+    receipt: "receipt_order_1",
+  };
+
+  try {
+    const order = await razorpay.orders.create(options);
+    res.status(200).json(order);
+  } catch (err) {
+    res.status(500).json({ error: "Order creation failed" });
+  }
+}
