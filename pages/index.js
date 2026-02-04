@@ -128,7 +128,13 @@ export default function JewelleryWebsite() {
   };
 
   return (
-    <div style={{ background: theme.blush, color: theme.text }} className="min-h-screen">
+    <div style={{
+  backgroundColor: "#0f0f14",
+  minHeight: "100vh",
+  padding: "40px 20px",
+  fontFamily: "serif",
+  color: "#e5e5e5"
+}}>
 
       <a href="https://wa.me/919876543210" target="_blank" className="fixed bottom-6 right-6 p-4 rounded-full shadow-xl z-50" style={{ background: "#25D366", color: "white" }}>
         <MessageCircle />
