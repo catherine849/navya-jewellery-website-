@@ -1,5 +1,6 @@
 {
-  "name": "navya-jewellery",
+  "name": "navya-jewellery-website",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -7,9 +8,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "firebase": "^10.12.0",
-    "framer-motion": "^10.16.4",
-    "lucide-react": "^0.263.1",
     "next": "14.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0"
