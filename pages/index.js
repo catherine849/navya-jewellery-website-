@@ -60,10 +60,32 @@ export default function JewelleryWebsite() {
   const [discount, setDiscount] = useState(0);
 
   const products = [
-    { id: 1, name: "Elegant AD Necklace Set", price: 1499, img: "https://images.unsplash.com/photo-1617038260897-41a1f14a2f59", category: "Necklace", stock: true, new: true },
-    { id: 2, name: "Traditional Kundan Earrings", price: 499, img: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1", category: "Earrings", stock: true },
-    { id: 3, name: "Bridal Choker Set", price: 1999, img: "https://images.unsplash.com/photo-1627295116034-7c6c1c3c3b02", category: "Bridal", stock: false }
-  ];
+  {
+    id: 1,
+    name: "Elegant AD Necklace Set",
+    price: 1499,
+    img: "https://images.unsplash.com/photo-1617038260897-41a1f14a2f59?q=80&w=800&auto=format&fit=crop",
+    category: "Necklace",
+    stock: true,
+    new: true
+  },
+  {
+    id: 2,
+    name: "Traditional Kundan Earrings",
+    price: 499,
+    img: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=80&w=800&auto=format&fit=crop",
+    category: "Earrings",
+    stock: true
+  },
+  {
+    id: 3,
+    name: "Bridal Choker Set",
+    price: 1999,
+    img: "https://images.unsplash.com/photo-1627295116034-7c6c1c3c3b02?q=80&w=800&auto=format&fit=crop",
+    category: "Bridal",
+    stock: false
+  }
+];
 
   const filteredProducts = products.filter(p =>
     (category === "All" || p.category === category) &&
@@ -136,18 +158,27 @@ return (
     color: "white"
   }}>
 
-      <a href="https://wa.me/919876543210" target="_blank" className="fixed bottom-6 right-6 p-4 rounded-full shadow-xl z-50" style={{ background: "#25D366", color: "white" }}>
-        <MessageCircle />
-      </a>
-
-      <header className="p-6 flex flex-col gap-4 md:flex-row justify-between items-center" style={{ background: theme.primary, color: "white" }}>
-        <h1 className="text-4xl font-bold text-center tracking-widest mb-2" style={{ color: "#d4af37" }}>
-  {brand.name}
-</h1>
-<p className="text-center text-sm mb-8" style={{ color: "#9ca3af" }}>
-  Artificial & AD Jewellery • {brand.city}
-</p>
-
+      <a
+  href="https://wa.me/919876543210"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="fixed bottom-6 right-6 w-14 h-14 flex items-center justify-center rounded-full shadow-2xl z-50 hover:scale-110 transition"
+  style={{ backgroundColor: "#25D366", color: "white" }}
+>
+  <MessageCircle size={28} />
+</a>
+      <header
+  className="px-6 py-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
+  style={{ background: theme.primary, color: "white" }}
+>
+  <div>
+    <h1 className="text-4xl font-bold tracking-widest" style={{ color: theme.gold }}>
+      {brand.name}
+    </h1>
+    <p className="text-sm text-gray-300">
+      Artificial & AD Jewellery • {brand.city}
+    </p>
+  </div>
         {!user ? (
           <div className="flex gap-2">
             <Input placeholder="+91 Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
@@ -187,14 +218,18 @@ return (
         {filteredProducts.map(p => (
           <Card
   key={p.id}
-  className="rounded-2xl overflow-hidden relative transition-transform duration-300 hover:-translate-y-1"
-  style={{ backgroundColor: "#1a1a22", border: "1px solid #2a2a35" }}
+  className="rounded-2xl overflow-hidden relative transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+  style={{
+    background: "linear-gradient(145deg, #1a1a22, #14141b)",
+    border: "1px solid #2a2a35"
+  }}
 >
             {p.new && <span className="absolute top-2 left-2 bg-black text-white text-xs px-2 py-1 rounded">NEW</span>}
             {!p.stock && <span className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">Out of Stock</span>}
             <img
   src={p.img}
-  className="h-56 w-full object-cover transition-transform duration-300 hover:scale-105"
+  alt={p.name}
+  className="h-48 w-full object-cover rounded-t-2xl"
 />
             <CardContent className="p-4">
               <h3 className="font-semibold text-lg mb-1" style={{ color: theme.gold }}>
