@@ -235,65 +235,47 @@ return (
           </Card>
         ))}
       </section>
+{/* Cart Drawer */}
+      <AnimatePresence>
+        {cartOpen && (
+          <motion.div
+            initial={{ x: 300 }}
+            animate={{ x: 0 }}
+            exit={{ x: 300 }}
+            className="fixed top-0 right-0 h-full w-96 p-6 z-50"
+            style={{ background: "#111" }}
+          >
+            <h2 className="text-xl mb-4">Your Cart</h2>
 
-      {adminView && (
-        <section className="max-w-5xl mx-auto px-6 pb-16">
-     <AnimatePresence>
-  {cartOpen && (
-    <motion.div
-      initial={{ x: 300 }}
-      animate={{ x: 0 }}
-      exit={{ x: 300 }}
-      transition={{ type: "spring", stiffness: 120 }}
-      className="fixed top-0 right-0 h-full w-96 p-6 z-50 flex flex-col"
-      style={{
-        background: "linear-gradient(180deg, #1a1a22, #111117)",
-        color: "white",
-        boxShadow: "-10px 0 40px rgba(0,0,0,0.6)"
-      }}
-    >
-      <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
+            {cart.length === 0 && <p>Cart is empty</p>}
 
-      {cart.length === 0 && <p>Your cart is empty</p>}
+            {cart.map((item, i) => (
+              <div key={i} className="flex justify-between mb-2">
+                <span>{item.name}</span>
+                <span>₹{item.price}</span>
+              </div>
+            ))}
 
-      {cart.map((item, i) => (
-        <div key={i} className="flex justify-between mb-2">
-          <span>{item.name}</span>
-          <span>₹{item.price}</span>
-        </div>
-      ))}
+            <Input placeholder="Coupon" value={coupon} onChange={e => setCoupon(e.target.value)} />
+            <Button onClick={applyCoupon} className="mt-2">Apply</Button>
 
-      <Input
-        placeholder="Coupon"
-        value={coupon}
-        onChange={(e) => setCoupon(e.target.value)}
-      />
-      <Button onClick={applyCoupon} className="mt-2">Apply</Button>
+            <div className="mt-4 font-bold">Total ₹{finalTotal}</div>
 
-      <div className="font-bold mt-4">Total ₹{finalTotal}</div>
+            <Button className="w-full mt-4" style={{ background: theme.gold, color: "#000" }}>
+              Pay Securely
+            </Button>
 
-      <Button
-        onClick={handlePayment}
-        className="w-full mt-4"
-        style={{ background: theme.gold, color: "black" }}
-      >
-        Pay Securely
-      </Button>
+            <Button variant="outline" className="w-full mt-2" onClick={() => setCartOpen(false)}>
+              Close
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      <Button
-        variant="outline"
-        className="w-full mt-2"
-        onClick={() => setCartOpen(false)}
-      >
-        Close
-      </Button>
-    </motion.div>
-  )}
-</AnimatePresence>
-    )}
-      <footer className="text-center py-8 text-sm" style={{ background: "#111", color: "#aaa" }}>
+      <footer className="text-center mt-20 text-gray-500">
         © {new Date().getFullYear()} {brand.name} · {brand.city}
       </footer>
+
     </div>
   );
 }
