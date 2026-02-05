@@ -283,53 +283,81 @@ return (
     </div>
   ))}
 </section>
-<h2 className="text-xl font-semibold mb-6" style={{ color: theme.primary }}>
 {/* Cart Drawer */}
-      <AnimatePresence>
-        {cartOpen && (
-          <motion.div
-            initial={{ x: 300 }}
-            animate={{ x: 0 }}
-            exit={{ x: 300 }}
-            className="fixed top-0 right-0 h-full w-80 p-6 z-[9999] bg-white shadow-2xl flex flex-col"
-          >
-            <h2 className="text-xl mb-4">Your Cart</h2>
+<AnimatePresence>
+  {cartOpen && (
+    <motion.div
+      initial={{ x: 320 }}
+      animate={{ x: 0 }}
+      exit={{ x: 320 }}
+      transition={{ type: "tween" }}
+      style={{
+        position: "fixed",
+        top: 0,
+        right: 0,
+        width: "320px",
+        height: "100vh",
+        backgroundColor: "white",
+        boxShadow: "-4px 0 20px rgba(0,0,0,0.15)",
+        padding: "24px",
+        zIndex: 9999,
+        display: "flex",
+        flexDirection: "column"
+      }}
+    >
+      <h2 style={{ fontSize: "20px", marginBottom: "16px", color: theme.primary }}>
+        Your Cart
+      </h2>
 
-            {cart.length === 0 && <p>Cart is empty</p>}
+      {cart.length === 0 && <p>Cart is empty</p>}
 
-            {cart.map((item, i) => (
-              <div key={i} className="flex justify-between mb-2">
-                <span>{item.name}</span>
-                <span>₹{item.price}</span>
-              </div>
-            ))}
+      {cart.map((item, i) => (
+        <div key={i} style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
+          <span>{item.name}</span>
+          <span>₹{item.price}</span>
+        </div>
+      ))}
 
-            <Input placeholder="Coupon" value={coupon} onChange={e => setCoupon(e.target.value)} />
-            <Button onClick={applyCoupon} className="mt-2">Apply</Button>
+      <Input placeholder="Coupon" value={coupon} onChange={e => setCoupon(e.target.value)} />
+      <Button onClick={applyCoupon} className="mt-2">Apply</Button>
 
-            <div className="mt-4 font-bold">Total ₹{finalTotal}</div>
+      <div style={{ marginTop: "16px", fontWeight: "600" }}>Total ₹{finalTotal}</div>
 
-            <Button className="w-full mt-4" style={{ background: theme.gold, color: "#000" }}>
-              Pay Securely
-            </Button>
+      <Button style={{ marginTop: "16px", background: theme.gold, color: "#000" }}>
+        Pay Securely
+      </Button>
 
-            <Button variant="outline" className="w-full mt-2" onClick={() => setCartOpen(false)}>
-              Close
-            </Button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-          </h2>
-          <AnimatePresence>
+      <Button variant="outline" style={{ marginTop: "8px" }} onClick={() => setCartOpen(false)}>
+        Close
+      </Button>
+    </motion.div>
+  )}
+</AnimatePresence>
+    {/* Account Drawer */}
+<AnimatePresence>
   {accountOpen && (
     <motion.div
-      initial={{ x: 300 }}
+      initial={{ x: 320 }}
       animate={{ x: 0 }}
-      exit={{ x: 300 }}
-      transition={{ type: "tween" }} 
-      className="fixed top-0 right-0 h-full w-80 p-6 z-[9999] bg-white shadow-2xl flex flex-col"
+      exit={{ x: 320 }}
+      transition={{ type: "tween" }}
+      style={{
+        position: "fixed",
+        top: 0,
+        right: 0,
+        width: "320px",
+        height: "100vh",
+        backgroundColor: "white",
+        boxShadow: "-4px 0 20px rgba(0,0,0,0.15)",
+        padding: "24px",
+        zIndex: 9999,
+        display: "flex",
+        flexDirection: "column"
+      }}
     >
-      <h2 className="text-xl font-semibold mb-4">My Account</h2>
+      <h2 style={{ fontSize: "20px", marginBottom: "16px", color: theme.primary }}>
+        My Account
+      </h2>
 
       {!user ? (
         <>
@@ -340,69 +368,51 @@ return (
           <div id="recaptcha-container"></div>
         </>
       ) : (
-        <p className="text-green-600 font-medium">Welcome! You are logged in.</p>
+        <p style={{ color: "green", fontWeight: "500" }}>You are logged in 💖</p>
       )}
 
-      <Button variant="outline" className="mt-auto" onClick={() => setAccountOpen(false)}>
+      <Button variant="outline" style={{ marginTop: "auto" }} onClick={() => setAccountOpen(false)}>
         Close
       </Button>
     </motion.div>
   )}
 </AnimatePresence>
-    
-{/* Account Panel */}
-    <AnimatePresence>
-  {accountOpen && (
-    <motion.div
-      initial={{ x: 300 }}
-      animate={{ x: 0 }}
-      exit={{ x: 300 }}
-      className="fixed top-0 right-0 h-full w-80 p-6 z-[9999] bg-white shadow-2xl flex flex-col"
-    >
-      <h2 className="text-xl font-semibold mb-4">My Account</h2>
-
-      {!user ? (
-        <>
-          <Input placeholder="+91 Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-          <Button onClick={sendOTP} className="mt-2">Send OTP</Button>
-
-          <Input placeholder="Enter OTP" value={otp} onChange={(e) => setOtp(e.target.value)} />
-          <Button onClick={verifyOTP} className="mt-2">Login</Button>
-
-          <div id="recaptcha-container"></div>
-        </>
-      ) : (
-        <p className="text-green-600 font-medium">Welcome! You are logged in 💖</p>
-      )}
-
-      <Button variant="outline" className="mt-auto" onClick={() => setAccountOpen(false)}>
-        Close
-      </Button>
-    </motion.div>
-  )}
-</AnimatePresence>
-    
-    <AnimatePresence>
+    {/* Wishlist Drawer */}
+<AnimatePresence>
   {wishlistOpen && (
     <motion.div
-      initial={{ x: 300 }}
+      initial={{ x: 320 }}
       animate={{ x: 0 }}
-      exit={{ x: 300 }}
+      exit={{ x: 320 }}
       transition={{ type: "tween" }}
-      className="fixed top-0 right-0 h-full w-80 p-6 z-[9999] bg-white shadow-2xl flex flex-col"
+      style={{
+        position: "fixed",
+        top: 0,
+        right: 0,
+        width: "320px",
+        height: "100vh",
+        backgroundColor: "white",
+        boxShadow: "-4px 0 20px rgba(0,0,0,0.15)",
+        padding: "24px",
+        zIndex: 9999,
+        display: "flex",
+        flexDirection: "column"
+      }}
     >
-      <h2 className="text-xl font-semibold mb-4">Your Wishlist</h2>
+      <h2 style={{ fontSize: "20px", marginBottom: "16px", color: theme.primary }}>
+        Wishlist
+      </h2>
 
       {wishlist.length === 0 && <p>No items yet</p>}
 
       {wishlist.map((item, i) => (
-        <div key={i} className="flex justify-between mb-3">
+        <div key={i} style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
           <span>{item.name}</span>
           <Button size="sm" onClick={() => addToCart(item)}>Add</Button>
         </div>
       ))}
 
-      <Button variant="outline" className="mt-auto" onClick={() => setWishlistOpen(false)}>
+      <Button variant="outline" style={{ marginTop: "auto" }} onClick={() => setWishlistOpen(false)}>
         Close
       </Button>
     </motion.div>
