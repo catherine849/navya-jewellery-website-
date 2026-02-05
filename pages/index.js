@@ -238,15 +238,6 @@ return (
 
       {adminView && (
         <section className="max-w-5xl mx-auto px-6 pb-16">
-          <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2"><BarChart3 /> Admin Dashboard</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="p-6"><h3>Total Orders</h3><p className="text-2xl font-bold">{orders.length}</p></Card>
-            <Card className="p-6"><h3>Total Revenue</h3><p className="text-2xl font-bold">₹{totalRevenue}</p></Card>
-            <Card className="p-6"><h3>Wishlist Items</h3><p className="text-2xl font-bold">{wishlist.length}</p></Card>
-          </div>
-        </section>
-      )}
-
      <AnimatePresence>
   {cartOpen && (
     <motion.div
@@ -299,6 +290,7 @@ return (
     </motion.div>
   )}
 </AnimatePresence>
+    )}
             <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
             {cart.length === 0 && <p>Your cart is empty</p>}
             {cart.map((item, i) => <div key={i} className="flex justify-between"><span>{item.name}</span><span>₹{item.price}</span></div>)}
