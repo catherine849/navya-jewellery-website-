@@ -161,51 +161,68 @@ return (
       <a
   href="https://wa.me/919876543210"
   target="_blank"
-  rel="noopener noreferrer"
-  className="fixed bottom-6 right-6 w-14 h-14 flex items-center justify-center rounded-full shadow-2xl z-50 hover:scale-110 transition"
-  style={{ backgroundColor: "#25D366", color: "white" }}
+  className="fixed bottom-6 left-6 z-50 w-14 h-14 flex items-center justify-center rounded-full shadow-lg"
+  style={{ background: "#25D366" }}
 >
-  <MessageCircle size={28} />
+  <MessageCircle color="white" size={28} />
 </a>
-      <header
-  className="px-6 py-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
-  style={{ background: theme.primary, color: "white" }}
->
-  <div>
-    <h1 className="text-4xl font-bold tracking-widest" style={{ color: theme.gold }}>
+      <header className="sticky top-0 z-50 bg-white shadow-sm">
+  <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+    {/* Logo */}
+    <h1 style={{ color: theme.primary }} className="text-2xl font-semibold tracking-wide">
       {brand.name}
     </h1>
-    <p className="text-sm text-gray-300">
-      Artificial & AD Jewellery • {brand.city}
-    </p>
+
+    {/* Categories */}
+    <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-700">
+      {["All", "Necklace", "Earrings", "Bridal"].map(cat => (
+        <button
+          key={cat}
+          onClick={() => setCategory(cat)}
+          className={`hover:text-black ${category === cat ? "text-black font-semibold" : ""}`}
+        >
+          {cat}
+        </button>
+      ))}
+    </nav>
+
+    {/* Right Icons */}
+    <div className="flex items-center gap-4">
+      <div className="hidden md:block w-56">
+        <Input
+          placeholder="Search jewellery..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
+      <button onClick={() => setAdminView(!adminView)} className="p-2 rounded-full hover:bg-gray-100">
+        <User size={20} />
+      </button>
+
+      <button className="p-2 rounded-full hover:bg-gray-100">
+        <Heart size={20} />
+      </button>
+
+      <button onClick={() => setCartOpen(true)} className="relative p-2 rounded-full hover:bg-gray-100">
+        <ShoppingCart size={20} />
+        {cart.length > 0 && (
+          <span className="fixed top-0 right-0 h-full w-80 p-6 z-50 bg-white shadow-2xl flex flex-col">
+            {cart.length}
+          </span>
+        )}
+      </button>
+    </div>
   </div>
-        {!user ? (
-          <div className="flex gap-2">
-            <Input placeholder="+91 Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-            <Button onClick={sendOTP}>OTP</Button>
-            <Input placeholder="Code" value={otp} onChange={(e) => setOtp(e.target.value)} />
-            <Button onClick={verifyOTP}>Login</Button>
-            <div id="recaptcha-container"></div>
-          </div>
-        ) : <span>Welcome 💖</span>}
+</header>
 
-        <div className="flex gap-4">
-          <button onClick={() => setAdminView(!adminView)}><User /></button>
-          <button onClick={() => setCartOpen(true)}><ShoppingCart /> ({cart.length})</button>
-        </div>
-      </header>
-
-      <section className="text-center py-20 px-6">
-  <h2
-  className="text-5xl font-bold mb-4"
-  style={{ color: theme.gold, letterSpacing: "2px", textShadow: "0 0 20px rgba(212,175,55,0.3)" }}
->
-    Luxury Within Reach ✨
+      <section className="text-center py-20 bg-[#fafafa]">
+  <h2 className="text-4xl font-semibold mb-3" style={{ color: theme.primary }}>
+    Luxury Jewellery, Everyday Elegance
   </h2>
-  <p style={{ color: "#9ca3af" }}>
-    Premium Artificial & AD Jewellery crafted for elegance in {brand.city}
-  </p>
-  </section>
+  <p className="text-gray-600">Artificial & AD Jewellery crafted in {brand.city}</p>
+</section>
 
       <div className="max-w-5xl mx-auto px-6 flex gap-4 mb-8">
         <Input placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -214,62 +231,41 @@ return (
         </select>
       </div>
 
-      <section className="grid md:grid-cols-3 gap-10 px-6 pb-12 max-w-6xl mx-auto">
-        {filteredProducts.map(p => (
-          <Card
-  key={p.id}
-  className="rounded-2xl overflow-hidden relative transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
-  style={{
-    background: "linear-gradient(145deg, #1a1a22, #14141b)",
-    border: "1px solid #2a2a35"
-  }}
->
-            {p.new && <span className="absolute top-2 left-2 bg-black text-white text-xs px-2 py-1 rounded">NEW</span>}
-            {!p.stock && <span className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">Out of Stock</span>}
-            <img
-  src={p.img}
-  alt={p.name}
-  className="h-48 w-full object-cover rounded-t-2xl"
-/>
-            <CardContent className="p-4">
-              <h3 className="font-semibold text-lg mb-1" style={{ color: theme.gold }}>
-  {p.name}
-</h3>
-              <p className="font-semibold mb-2" style={{ color: "#e5e5e5" }}>
-  ₹{p.price}
-</p>
-              <div className="flex gap-2 mt-3">
-                <Button
-  onClick={() => addToCart(p)}
-  disabled={!p.stock}
-  className="w-full"
-  style={{
-  background: "linear-gradient(135deg, #d4af37, #f5d76e)",
-  color: "#000",
-  fontWeight: "600",
-  transition: "all 0.3s ease"
-}}
->
-  Add to Cart
-</Button>
-                <Button
-  variant="outline"
-  onClick={() => addToWishlist(p)}
-  style={{ borderColor: "#444", color: "#d4af37" }}
->
-  <Heart size={16} />
-</Button>
-              </div>
+      <section className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 px-6 pb-24 max-w-7xl mx-auto">
+  {filteredProducts.map(p => (
+    <div key={p.id} className="group">
 
-              <div className="mt-3">
-                <Input placeholder="Write a review..." value={newReview} onChange={(e) => setNewReview(e.target.value)} />
-                <Button onClick={() => addReview(p.id)} className="mt-2">Post</Button>
-                {(reviews[p.id] || []).map((r, i) => <p key={i} className="text-sm mt-1">⭐ {r}</p>)}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </section>
+      {/* Image */}
+      <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+        <img
+          src={p.img}
+          alt={p.name}
+          className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+        />
+      </div>
+
+      {/* Info */}
+      <div className="mt-4 text-center">
+        <h3 className="text-sm font-medium text-gray-800">{p.name}</h3>
+        <p className="mt-1 font-semibold" style={{ color: theme.primary }}>₹{p.price}</p>
+      </div>
+
+      {/* Buttons */}
+      <div className="mt-3 flex gap-2 justify-center">
+        <Button
+          onClick={() => addToCart(p)}
+          className="px-4"
+          style={{ background: theme.primary, color: "white" }}
+        >
+          Add to Cart
+        </Button>
+        <Button variant="outline" onClick={() => addToWishlist(p)}>
+          <Heart size={16} />
+        </Button>
+      </div>
+    </div>
+  ))}
+</section>
 {/* Cart Drawer */}
       <AnimatePresence>
         {cartOpen && (
