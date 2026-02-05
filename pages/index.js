@@ -253,12 +253,12 @@ return (
     <div key={p.id} className="group">
 
       {/* Image */}
-      <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+      <div className="relative h-[340px] bg-gray-100 rounded-lg overflow-hidden">
         <img
-          src={p.img}
-          alt={p.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-        />
+  src={p.img}
+  alt={p.name}
+  className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+      />
       </div>
 
       {/* Info */}
@@ -283,6 +283,7 @@ return (
     </div>
   ))}
 </section>
+<h2 className="text-xl font-semibold mb-6" style={{ color: theme.primary }}>
 {/* Cart Drawer */}
       <AnimatePresence>
         {cartOpen && (
@@ -290,8 +291,7 @@ return (
             initial={{ x: 300 }}
             animate={{ x: 0 }}
             exit={{ x: 300 }}
-            className="fixed top-0 right-0 h-full w-96 p-6 z-50"
-            style={{ background: "#111" }}
+            className="fixed top-0 right-0 h-full w-80 p-6 z-[9999] bg-white shadow-2xl flex flex-col"
           >
             <h2 className="text-xl mb-4">Your Cart</h2>
 
@@ -319,13 +319,15 @@ return (
           </motion.div>
         )}
       </AnimatePresence>
-<AnimatePresence>
+          </h2>
+          <AnimatePresence>
   {accountOpen && (
     <motion.div
       initial={{ x: 300 }}
       animate={{ x: 0 }}
       exit={{ x: 300 }}
-      className="fixed top-0 right-0 h-full w-80 p-6 z-50 bg-white shadow-2xl flex flex-col"
+      transition={{ type: "tween" }} 
+      className="fixed top-0 right-0 h-full w-80 p-6 z-[9999] bg-white shadow-2xl flex flex-col"
     >
       <h2 className="text-xl font-semibold mb-4">My Account</h2>
 
@@ -347,51 +349,8 @@ return (
     </motion.div>
   )}
 </AnimatePresence>
-    {/* Account Panel */}
-<AnimatePresence>
-  {accountOpen && (
-    <motion.div
-      initial={{ x: 300 }}
-      animate={{ x: 0 }}
-      exit={{ x: 300 }}
-      className="fixed top-0 right-0 h-full w-80 p-6 z-50 bg-white shadow-2xl flex flex-col"
-    >
-      <h2 className="text-xl font-semibold mb-4">My Account</h2>
-
-      {!user ? (
-        <>
-          <Input
-            placeholder="+91 Phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-          <Button onClick={sendOTP} className="mt-2">Send OTP</Button>
-
-          <Input
-            placeholder="Enter OTP"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-          />
-          <Button onClick={verifyOTP} className="mt-2">Login</Button>
-
-          <div id="recaptcha-container"></div>
-        </>
-      ) : (
-        <p className="text-green-600 font-medium">
-          Welcome! You are logged in 💖
-        </p>
-      )}
-
-      <Button
-        variant="outline"
-        className="mt-auto"
-        onClick={() => setAccountOpen(false)}
-      >
-        Close
-      </Button>
-    </motion.div>
-  )}
-</AnimatePresence>
+    
+{/* Account Panel */}
     <AnimatePresence>
   {accountOpen && (
     <motion.div
@@ -422,12 +381,14 @@ return (
     </motion.div>
   )}
 </AnimatePresence>
+    
     <AnimatePresence>
   {wishlistOpen && (
     <motion.div
       initial={{ x: 300 }}
       animate={{ x: 0 }}
       exit={{ x: 300 }}
+      transition={{ type: "tween" }}
       className="fixed top-0 right-0 h-full w-80 p-6 z-[9999] bg-white shadow-2xl flex flex-col"
     >
       <h2 className="text-xl font-semibold mb-4">Your Wishlist</h2>
