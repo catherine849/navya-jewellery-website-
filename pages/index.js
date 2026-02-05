@@ -46,6 +46,7 @@ export default function JewelleryWebsite() {
   const [category, setCategory] = useState("All");
   const [accountOpen, setAccountOpen] = useState(false);
   const [wishlistOpen, setWishlistOpen] = useState(false);
+  
   /* Login */
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
@@ -222,22 +223,12 @@ return (
   <User size={20} />
 </button>
 
-<button onClick={() => setWishlistOpen(true)} className="p-2 rounded-full hover:bg-gray-100 relative">
+<button onClick={() => setWishlistOpen(true)} className="p-2 rounded-full hover:bg-gray-100">
   <Heart size={20} />
-  {wishlist.length > 0 && (
-    <span className="absolute -top-1 -right-1 bg-black text-white text-xs rounded-full px-1">
-      {wishlist.length}
-    </span>
-  )}
 </button>
 
-<button onClick={() => setCartOpen(true)} className="relative p-2 rounded-full hover:bg-gray-100">
+<button onClick={() => setCartOpen(true)} className="p-2 rounded-full hover:bg-gray-100">
   <ShoppingCart size={20} />
-  {cart.length > 0 && (
-    <span className="absolute -top-1 -right-1 bg-black text-white text-xs rounded-full px-1">
-      {cart.length}
-    </span>
-  )}
 </button>
     </div>
   </div>
@@ -396,6 +387,61 @@ return (
         className="mt-auto"
         onClick={() => setAccountOpen(false)}
       >
+        Close
+      </Button>
+    </motion.div>
+  )}
+</AnimatePresence>
+    <AnimatePresence>
+  {accountOpen && (
+    <motion.div
+      initial={{ x: 300 }}
+      animate={{ x: 0 }}
+      exit={{ x: 300 }}
+      className="fixed top-0 right-0 h-full w-80 p-6 z-[9999] bg-white shadow-2xl flex flex-col"
+    >
+      <h2 className="text-xl font-semibold mb-4">My Account</h2>
+
+      {!user ? (
+        <>
+          <Input placeholder="+91 Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+          <Button onClick={sendOTP} className="mt-2">Send OTP</Button>
+
+          <Input placeholder="Enter OTP" value={otp} onChange={(e) => setOtp(e.target.value)} />
+          <Button onClick={verifyOTP} className="mt-2">Login</Button>
+
+          <div id="recaptcha-container"></div>
+        </>
+      ) : (
+        <p className="text-green-600 font-medium">Welcome! You are logged in 💖</p>
+      )}
+
+      <Button variant="outline" className="mt-auto" onClick={() => setAccountOpen(false)}>
+        Close
+      </Button>
+    </motion.div>
+  )}
+</AnimatePresence>
+    <AnimatePresence>
+  {wishlistOpen && (
+    <motion.div
+      initial={{ x: 300 }}
+      animate={{ x: 0 }}
+      exit={{ x: 300 }}
+      className="fixed top-0 right-0 h-full w-80 p-6 z-[9999] bg-white shadow-2xl flex flex-col"
+    >
+      <h2 className="text-xl font-semibold mb-4">Your Wishlist</h2>
+
+      {wishlist.length === 0 && <p>No items yet</p>}
+
+      {wishlist.map((item, i) => (
+        <div key={i} className="flex justify-between mb-3">
+          <span>{item.name}</span>
+          <Button size="sm" onClick={() => addToCart(item)}>Add</Button>
+        </div>
+      ))}
+
+      <Button variant="outline" className="mt-auto" onClick={() => setWishlistOpen(false)}>
         Close
       </Button>
     </motion.div>
