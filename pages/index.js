@@ -127,21 +127,26 @@ export default function JewelleryWebsite() {
     setCartOpen(false);
   };
 
-  return (
-    <div style={{
-  backgroundColor: "#0f0f14",
-  minHeight: "100vh",
-  padding: "40px 20px",
-  fontFamily: "serif",
-  color: "#e5e5e5"
-}}>
+return (
+  <div style={{
+    backgroundColor: "#0f0f14",
+    minHeight: "100vh",
+    padding: "40px 20px",
+    fontFamily: "'Playfair Display', serif",
+    color: "white"
+  }}>
 
       <a href="https://wa.me/919876543210" target="_blank" className="fixed bottom-6 right-6 p-4 rounded-full shadow-xl z-50" style={{ background: "#25D366", color: "white" }}>
         <MessageCircle />
       </a>
 
       <header className="p-6 flex flex-col gap-4 md:flex-row justify-between items-center" style={{ background: theme.primary, color: "white" }}>
-        <h1 className="text-2xl font-bold">{brand.name}</h1>
+        <h1 className="text-4xl font-bold text-center tracking-widest mb-2" style={{ color: "#d4af37" }}>
+  {brand.name}
+</h1>
+<p className="text-center text-sm mb-8" style={{ color: "#9ca3af" }}>
+  Artificial & AD Jewellery • {brand.city}
+</p>
 
         {!user ? (
           <div className="flex gap-2">
@@ -159,10 +164,17 @@ export default function JewelleryWebsite() {
         </div>
       </header>
 
-      <section className="text-center py-12">
-        <h2 className="text-4xl font-bold mb-2">Luxury Within Reach ✨</h2>
-        <p>Proudly serving {brand.city}</p>
-      </section>
+      <section className="text-center py-20 px-6">
+  <h2
+  className="text-5xl font-bold mb-4"
+  style={{ color: theme.gold, letterSpacing: "2px", textShadow: "0 0 20px rgba(212,175,55,0.3)" }}
+>
+    Luxury Within Reach ✨
+  </h2>
+  <p style={{ color: "#9ca3af" }}>
+    Premium Artificial & AD Jewellery crafted for elegance in {brand.city}
+  </p>
+  </section>
 
       <div className="max-w-5xl mx-auto px-6 flex gap-4 mb-8">
         <Input placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -171,18 +183,47 @@ export default function JewelleryWebsite() {
         </select>
       </div>
 
-      <section className="grid md:grid-cols-3 gap-8 px-6 pb-16 max-w-6xl mx-auto">
+      <section className="grid md:grid-cols-3 gap-10 px-6 pb-20 max-w-6xl mx-auto">
         {filteredProducts.map(p => (
-          <Card key={p.id} className="rounded-2xl shadow-lg overflow-hidden relative">
+          <Card
+  key={p.id}
+  className="rounded-2xl overflow-hidden relative transition-transform duration-300 hover:-translate-y-1"
+  style={{ backgroundColor: "#1a1a22", border: "1px solid #2a2a35" }}
+>
             {p.new && <span className="absolute top-2 left-2 bg-black text-white text-xs px-2 py-1 rounded">NEW</span>}
             {!p.stock && <span className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">Out of Stock</span>}
-            <img src={p.img} className="h-56 w-full object-cover" />
+            <img
+  src={p.img}
+  className="h-56 w-full object-cover transition-transform duration-300 hover:scale-105"
+/>
             <CardContent className="p-4">
-              <h3 className="font-semibold text-lg">{p.name}</h3>
-              <p style={{ color: theme.gold }} className="font-bold">₹{p.price}</p>
+              <h3 className="font-semibold text-lg mb-1" style={{ color: theme.gold }}>
+  {p.name}
+</h3>
+              <p className="font-semibold mb-2" style={{ color: "#e5e5e5" }}>
+  ₹{p.price}
+</p>
               <div className="flex gap-2 mt-3">
-                <Button onClick={() => addToCart(p)} disabled={!p.stock} className="w-full" style={{ background: theme.primary, color: "white" }}>Add</Button>
-                <Button variant="outline" onClick={() => addToWishlist(p)}><Heart size={16} /></Button>
+                <Button
+  onClick={() => addToCart(p)}
+  disabled={!p.stock}
+  className="w-full"
+  style={{
+  background: "linear-gradient(135deg, #d4af37, #f5d76e)",
+  color: "#000",
+  fontWeight: "600",
+  transition: "all 0.3s ease"
+}}
+>
+  Add to Cart
+</Button>
+                <Button
+  variant="outline"
+  onClick={() => addToWishlist(p)}
+  style={{ borderColor: "#444", color: "#d4af37" }}
+>
+  <Heart size={16} />
+</Button>
               </div>
 
               <div className="mt-3">
@@ -208,7 +249,12 @@ export default function JewelleryWebsite() {
 
       <AnimatePresence>
         {cartOpen && (
-          <motion.div initial={{ x: 300 }} animate={{ x: 0 }} exit={{ x: 300 }} className="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl p-6 z-50">
+          <motion.div initial={{ x: 300 }} animate={{ x: 0 }} exit={{ x: 300 }} className="fixed top-0 right-0 h-full w-80 shadow-2xl p-6 z-50"
+style={{
+  backgroundColor: "#1a1a22",
+  color: "white",
+  boxShadow: "-10px 0 40px rgba(0,0,0,0.6)"
+}}
             <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
             {cart.length === 0 && <p>Your cart is empty</p>}
             {cart.map((item, i) => <div key={i} className="flex justify-between"><span>{item.name}</span><span>₹{item.price}</span></div>)}
@@ -222,7 +268,7 @@ export default function JewelleryWebsite() {
         )}
       </AnimatePresence>
 
-      <footer className="text-center py-6 text-sm" style={{ background: theme.primary, color: "white" }}>
+      <footer className="text-center py-8 text-sm" style={{ background: "#111", color: "#aaa" }}>
         © {new Date().getFullYear()} {brand.name} · {brand.city}
       </footer>
     </div>
