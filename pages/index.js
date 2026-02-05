@@ -214,7 +214,7 @@ return (
         </select>
       </div>
 
-      <section className="grid md:grid-cols-3 gap-10 px-6 pb-20 max-w-6xl mx-auto">
+      <section className="grid md:grid-cols-3 gap-10 px-6 pb-12 max-w-6xl mx-auto">
         {filteredProducts.map(p => (
           <Card
   key={p.id}
