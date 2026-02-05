@@ -247,14 +247,58 @@ return (
         </section>
       )}
 
-      <AnimatePresence>
-        {cartOpen && (
-          <motion.div initial={{ x: 300 }} animate={{ x: 0 }} exit={{ x: 300 }} className="fixed top-0 right-0 h-full w-80 shadow-2xl p-6 z-50"
-style={{
-  backgroundColor: "#1a1a22",
-  color: "white",
-  boxShadow: "-10px 0 40px rgba(0,0,0,0.6)"
-}}
+     <AnimatePresence>
+  {cartOpen && (
+    <motion.div
+      initial={{ x: 300 }}
+      animate={{ x: 0 }}
+      exit={{ x: 300 }}
+      transition={{ type: "spring", stiffness: 120 }}
+      className="fixed top-0 right-0 h-full w-96 p-6 z-50 flex flex-col"
+      style={{
+        background: "linear-gradient(180deg, #1a1a22, #111117)",
+        color: "white",
+        boxShadow: "-10px 0 40px rgba(0,0,0,0.6)"
+      }}
+    >
+      <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
+
+      {cart.length === 0 && <p>Your cart is empty</p>}
+
+      {cart.map((item, i) => (
+        <div key={i} className="flex justify-between mb-2">
+          <span>{item.name}</span>
+          <span>₹{item.price}</span>
+        </div>
+      ))}
+
+      <Input
+        placeholder="Coupon"
+        value={coupon}
+        onChange={(e) => setCoupon(e.target.value)}
+      />
+      <Button onClick={applyCoupon} className="mt-2">Apply</Button>
+
+      <div className="font-bold mt-4">Total ₹{finalTotal}</div>
+
+      <Button
+        onClick={handlePayment}
+        className="w-full mt-4"
+        style={{ background: theme.gold, color: "black" }}
+      >
+        Pay Securely
+      </Button>
+
+      <Button
+        variant="outline"
+        className="w-full mt-2"
+        onClick={() => setCartOpen(false)}
+      >
+        Close
+      </Button>
+    </motion.div>
+  )}
+</AnimatePresence>
             <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
             {cart.length === 0 && <p>Your cart is empty</p>}
             {cart.map((item, i) => <div key={i} className="flex justify-between"><span>{item.name}</span><span>₹{item.price}</span></div>)}
