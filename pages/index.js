@@ -291,19 +291,6 @@ return (
   )}
 </AnimatePresence>
     )}
-            <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
-            {cart.length === 0 && <p>Your cart is empty</p>}
-            {cart.map((item, i) => <div key={i} className="flex justify-between"><span>{item.name}</span><span>₹{item.price}</span></div>)}
-            <Input placeholder="Coupon" value={coupon} onChange={(e) => setCoupon(e.target.value)} />
-            <Button onClick={applyCoupon} className="mt-2">Apply</Button>
-            <div className="font-bold mt-4">Total ₹{finalTotal}</div>
-            <Button onClick={handlePayment} className="w-full mt-4" style={{ background: theme.gold, color: "black" }}>Pay Securely</Button>
-            <Button variant="outline" className="w-full mt-2 flex items-center justify-center gap-2"><FileText size={16} /> Invoice</Button>
-            <Button variant="outline" className="w-full mt-2" onClick={() => setCartOpen(false)}>Close</Button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       <footer className="text-center py-8 text-sm" style={{ background: "#111", color: "#aaa" }}>
         © {new Date().getFullYear()} {brand.name} · {brand.city}
       </footer>
