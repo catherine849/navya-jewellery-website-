@@ -1244,23 +1244,36 @@ export default function JewelleryWebsite() {
           </div>
 
           <div>
-            <h4 style={{
-              fontSize: "12px",
-              letterSpacing: "2px",
-              textTransform: "uppercase",
-              marginBottom: "16px",
-              fontWeight: "500"
-            }}>
-              Follow Us
-            </h4>
-            <div style={{ display: "flex", gap: "16px" }}>
-              <a href="#" style={{ color: "white" }}>
-                <Instagram size={20} />
-              </a>
-            </div>
-          </div>
-        </div>
-
+  <h4 style={{
+    fontSize: "12px",
+    letterSpacing: "2px",
+    textTransform: "uppercase",
+    marginBottom: "16px",
+    fontWeight: "500"
+  }}>
+    Follow Us
+  </h4>
+  <div style={{ display: "flex", gap: "16px", marginBottom: "16px" }}>
+    <a 
+  href="https://instagram.com/your_username" 
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{ color: "white" }}
+>
+  <Instagram size={20} />
+</a>
+  </div>
+  <a 
+    href="mailto:navnil.commercial@gmail.com"
+    style={{
+      color: "#999",
+      fontSize: "14px",
+      textDecoration: "none"
+    }}
+  >
+    navnil.commercial@gmail.com
+  </a>
+</div>
         <div style={{
           maxWidth: "1400px",
           margin: "40px auto 0",
