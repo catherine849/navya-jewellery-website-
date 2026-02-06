@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { initializeApp, getApps } from "firebase/app";
+import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -7,15 +7,34 @@ const firebaseConfig = {
   projectId: process.env.FIREBASE_PROJECT_ID,
 };
 
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase only once
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
 const db = getFirestore(app);
 
 export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
   try {
     const order = req.body;
-    await addDoc(collection(db, "orders"), order);
-    res.status(200).json({ message: "Order saved" });
+    
+    // Add timestamp and order ID
+    const orderData = {
+      ...order,
+      createdAt: serverTimestamp(),
+      orderId: `ORD-${Date.now()}`,
+      status: "pending"
+    };
+
+    const docRef = await addDoc(collection(db, "orders"), orderData);
+    
+    res.status(200).json({ 
+      message: "Order saved successfully",
+      orderId: docRef.id 
+    });
   } catch (err) {
+    console.error("Firebase save error:", err);
     res.status(500).json({ error: "Database error" });
   }
 }
