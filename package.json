@@ -1,6 +1,6 @@
 {
   "name": "navya-jewellery-website",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,13 +8,13 @@
     "start": "next start"
   },
   "dependencies": {
-  "next": "14.2.3",
-  "react": "18.2.0",
-  "react-dom": "18.2.0",
-  "firebase": "^10.0.0",
-  "razorpay": "^2.9.0",
-  "lucide-react": "^0.378.0",
-  "twilio": "^4.0.0",
-  "framer-motion": "^11.0.0"
-}
+    "next": "14.2.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "firebase": "^10.0.0",
+    "razorpay": "^2.9.0",
+    "lucide-react": "^0.378.0",
+    "twilio": "^4.0.0",
+    "framer-motion": "^11.0.0"
+  }
 }
