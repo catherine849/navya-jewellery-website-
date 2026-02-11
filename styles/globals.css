@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
 
 * {
   box-sizing: border-box;
@@ -10,13 +10,13 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  color: #1a1a1a;
+  color: #1a1613;
   background: #ffffff;
 }
 
@@ -44,31 +44,36 @@ button {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f5f5f5;
+  background: #faf8f5;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
+  background: #d4af37;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #999;
+  background: #c9a02e;
 }
 
 /* Selection color */
 ::selection {
-  background: #c9a961;
-  color: white;
+  background: #d4af37;
+  color: #1a1613;
 }
 
 /* Focus visible for accessibility */
 button:focus-visible,
 input:focus-visible {
-  outline: 2px solid #c9a961;
+  outline: 2px solid #d4af37;
   outline-offset: 2px;
+}
+
+/* Smooth transitions */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
