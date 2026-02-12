@@ -2560,7 +2560,7 @@ export default function NavyaJewellery() {
           </div>
         </motion.div>
       ))}
-    </>
+    </motion.div>
   )}
 </div>
 </AnimatePresence>
