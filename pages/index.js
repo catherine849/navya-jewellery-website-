@@ -2759,3 +2759,6 @@ export default function NavyaJewellery() {
     </div>
   </div>
 </footer>
+</div>
+  );
+}
