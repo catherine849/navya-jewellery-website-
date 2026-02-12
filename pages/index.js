@@ -407,58 +407,65 @@ export default function NavyaJewellery() {
 
   /* Payment Integration */
   const handlePayment = async () => {
-    if (!user) {
-      alert("Please login first to proceed with checkout");
-      setCartOpen(false);
-      setAccountOpen(true);
-      return;
-    }
+  if (!user) {
+    alert("Please login first to proceed with checkout");
+    setCartOpen(false);
+    setAccountOpen(true);
+    return;
+  }
 
-    if (cart.length === 0) {
-      alert("Your cart is empty!");
-      return;
-    }
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
 
-    try {
-      const res = await fetch("/api/create-order", { 
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: Math.round(finalTotal * 100) })
-      });
-      const data = await res.json();
-      
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: data.amount,
-        currency: "INR",
-        name: brand.name,
-        description: "Jewellery Purchase",
-        order_id: data.id,
-        handler: function (response) { 
-          completeOrder(response.razorpay_payment_id, data.id); 
+  // ✅ Razorpay script safety check
+  if (!window.Razorpay) {
+    alert("Payment system not loaded. Please refresh and try again.");
+    return;
+  }
+
+  try {
+    // ✅ Send amount in RUPEES (server converts to paise)
+    const res = await fetch("/api/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: finalTotal }),
+    });
+
+    const data = await res.json();
+
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      amount: data.amount,
+      currency: "INR",
+      name: brand.name,
+      description: "Jewellery Purchase",
+      order_id: data.id,
+      handler: function (response) {
+        completeOrder(response.razorpay_payment_id, data.id);
+      },
+      prefill: {
+        name: user?.displayName || "",
+        contact: `+91${phone}`,
+      },
+      theme: {
+        color: theme.primary,
+      },
+      modal: {
+        ondismiss: function () {
+          alert("Payment cancelled");
         },
-        prefill: {
-          name: user?.displayName || "",
-          contact: `+91${phone}`
-        },
-        theme: { color: theme.primary },
-        modal: {
-          ondismiss: function() {
-            alert("Payment cancelled");
-          }
-        }
-      };
-      
-      const rzp = if (!window.Razorpay) {
-        alert("Payment system not loaded. Please refresh and try again.");
-        return;
-           }
-      rzp.open();
-    } catch (error) {
-      console.error("Payment error:", error);
-      alert("Failed to initiate payment. Please try again.");
-    }
-  };
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  } catch (error) {
+    console.error("Payment error:", error);
+    alert("Failed to initiate payment. Please try again.");
+  }
+};
 
   const completeOrder = async (paymentId, orderId) => {
     try {
