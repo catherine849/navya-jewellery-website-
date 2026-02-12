@@ -3036,6 +3036,5 @@ export default function NavyaJewellery() {
         }
       `}</style>
 
-    </div> 
   );
 }
