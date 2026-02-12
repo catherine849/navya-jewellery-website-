@@ -2530,7 +2530,17 @@ export default function NavyaJewellery() {
 >
   <X size={16} />
 </button>
-  
+                          </div>   {/* buttons */}
+                      </div>     {/* item text */}
+                    </motion.div>
+                  ))
+                )}
+              </div>   {/* wishlist items */}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
       <AnimatePresence>
         {cartOpen && (
           <>
