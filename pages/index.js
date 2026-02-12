@@ -1690,674 +1690,238 @@ export default function NavyaJewellery() {
               </div>
 
               {/* Footer */}
-              {cart.length > 0 && (
-                <div style={{
-                  padding: "28px 32px",
-                  borderTop: `1px solid ${theme.border}`,
-                  backgroundColor: theme.cream
-                }}>
-                  {/* Coupon */}
-                  <div style={{
-                    display: "flex",
-                    gap: "10px",
-                    marginBottom: "20px"
-                  }}>
-                    <input
-                      type="text"
-                      placeholder="Enter coupon code"
-                      value={coupon}
-                      onChange={(e) => setCoupon(e.target.value.toUpperCase())}
-                      style={{
-                        flex: 1,
-                        padding: "12px 16px",
-                        border: `1px solid ${theme.border}`,
-                        fontSize: "13px",
-                        fontFamily: "'Inter', sans-serif",
-                        outline: "none",
-                        borderRadius: "4px",
-                        backgroundColor: "white"
-                      }}
-                    />
-                    <button
-                      onClick={applyCoupon}
-                      style={{
-                        padding: "12px 24px",
-                        backgroundColor: theme.primary,
-                        color: "white",
-                        border: "none",
-                        fontSize: "12px",
-                        letterSpacing: "1px",
-                        cursor: "pointer",
-                        fontFamily: "'Inter', sans-serif",
-                        fontWeight: "500",
-                        borderRadius: "4px",
-                        transition: "all 0.3s ease"
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#333"}
-                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = theme.primary}
-                    >
-                      Apply
-                    </button>
-                  </div>
-
-                  {discount > 0 && (
-                    <div style={{
-                      padding: "12px 16px",
-                      backgroundColor: "#d4edda",
-                      border: "1px solid #c3e6cb",
-                      borderRadius: "4px",
-                      marginBottom: "16px"
-                    }}>
-                      <p style={{
-                        fontSize: "13px",
-                        color: "#155724",
-                        fontFamily: "'Inter', sans-serif",
-                        margin: 0
-                      }}>
-                        ✓ Coupon applied! You saved ₹{(subtotal * discount).toLocaleString()}
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Subtotal */}
-                  <div style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: "8px",
-                    fontSize: "14px",
-                    fontFamily: "'Inter', sans-serif",
-                    color: theme.gray
-                  }}>
-                    <span>Subtotal</span>
-                    <span>₹{subtotal.toLocaleString()}</span>
-                  </div>
-
-                  {discount > 0 && (
-                    <div style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: "8px",
-                      fontSize: "14px",
-                      fontFamily: "'Inter', sans-serif",
-                      color: theme.rose
-                    }}>
-                      <span>Discount ({(discount * 100)}%)</span>
-                      <span>-₹{(subtotal * discount).toLocaleString()}</span>
-                    </div>
-                  )}
-
-                  <div style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: "8px",
-                    fontSize: "13px",
-                    fontFamily: "'Inter', sans-serif",
-                    color: theme.gray
-                  }}>
-                    <span>Shipping</span>
-                    <span>{finalTotal >= 1499 ? 'FREE' : '₹50'}</span>
-                  </div>
-
-                  {/* Total */}
-                  <div style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    paddingTop: "16px",
-                    borderTop: `1px solid ${theme.border}`,
-                    marginBottom: "24px",
-                    fontSize: "20px",
-                    fontWeight: "400"
-                  }}>
-                    <span>Total</span>
-                    <span>₹{(finalTotal + (finalTotal >= 1499 ? 0 : 50)).toLocaleString()}</span>
-                  </div>
-
-                  {/* Checkout Button */}
-                  <button
-                    onClick={handlePayment}
-                    style={{
-                      width: "100%",
-                      padding: "18px",
-                      backgroundColor: theme.primary,
-                      color: "white",
-                      border: "none",
-                      fontSize: "13px",
-                      letterSpacing: "2px",
-                      textTransform: "uppercase",
-                      cursor: "pointer",
-                      fontFamily: "'Inter', sans-serif",
-                      fontWeight: "500",
-                      borderRadius: "4px",
-                      transition: "all 0.3s ease"
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = theme.accent;
-                      e.currentTarget.style.color = theme.primary;
-                      e.currentTarget.style.transform = "translateY(-2px)";
-                      e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.2)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = theme.primary;
-                      e.currentTarget.style.color = "white";
-                      e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.boxShadow = "none";
-                    }}
-                  >
-                    Proceed to Checkout
-                  </button>
-
-                  {!user && (
-                    <p style={{
-                      fontSize: "11px",
-                      textAlign: "center",
-                      color: theme.gray,
-                      marginTop: "12px",
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      You'll need to login before checkout
-                    </p>
-                  )}
-                </div>
-              )}
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
-      {/* Account Drawer */}
-      <AnimatePresence>
-        {accountOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setAccountOpen(false)}
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: "rgba(0, 0, 0, 0.6)",
-                zIndex: 9998
-              }}
-            />
-            
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              style={{
-                position: "fixed",
-                top: 0,
-                right: 0,
-                width: "min(450px, 100vw)",
-                height: "100vh",
-                backgroundColor: "white",
-                zIndex: 9999,
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "-8px 0 24px rgba(0,0,0,0.15)"
-              }}
-            >
-              <div style={{
-                padding: "28px 32px",
-                borderBottom: `1px solid ${theme.border}`,
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                backgroundColor: theme.cream
-              }}>
-                <h2 style={{
-                  fontSize: "20px",
-                  letterSpacing: "1px",
-                  fontWeight: "400"
-                }}>
-                  My Account
-                </h2>
-                <button
-                  onClick={() => setAccountOpen(false)}
-                  style={{
-                    background: "white",
-                    border: `1px solid ${theme.border}`,
-                    borderRadius: "50%",
-                    width: "36px",
-                    height: "36px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer"
-                  }}
-                >
-                  <X size={18} color={theme.primary} />
-                </button>
-              </div>
-
-              <div style={{ padding: "32px", flex: 1 }}>
-                {!user ? (
-                  <>
-                    <p style={{
-                      fontSize: "14px",
-                      color: theme.gray,
-                      marginBottom: "24px",
-                      fontFamily: "'Inter', sans-serif",
-                      lineHeight: "1.6"
-                    }}>
-                      Sign in with your phone number to track orders and enjoy a personalized shopping experience.
-                    </p>
-                    
-                    <input
-                      type="tel"
-                      placeholder="+91 Phone Number"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      style={{
-                        width: "100%",
-                        padding: "14px 16px",
-                        border: `1px solid ${theme.border}`,
-                        marginBottom: "16px",
-                        fontSize: "14px",
-                        fontFamily: "'Inter', sans-serif",
-                        outline: "none",
-                        borderRadius: "4px"
-                      }}
-                    />
-                    <button
-                      onClick={sendOTP}
-                      disabled={!phone || phone.length < 10}
-                      style={{
-                        width: "100%",
-                        padding: "14px",
-                        backgroundColor: phone && phone.length >= 10 ? theme.primary : "#e5e5e5",
-                        color: phone && phone.length >= 10 ? "white" : theme.gray,
-                        border: "none",
-                        fontSize: "13px",
-                        letterSpacing: "1px",
-                        textTransform: "uppercase",
-                        cursor: phone && phone.length >= 10 ? "pointer" : "not-allowed",
-                        marginBottom: "20px",
-                        fontFamily: "'Inter', sans-serif",
-                        fontWeight: "500",
-                        borderRadius: "4px",
-                        transition: "all 0.3s ease"
-                      }}
-                    >
-                      Send OTP
-                    </button>
-                    
-                    {confirmation && (
-                      <>
-                        <input
-                          type="text"
-                          placeholder="Enter 6-digit OTP"
-                          value={otp}
-                          onChange={(e) => setOtp(e.target.value)}
-                          maxLength="6"
-                          style={{
-                            width: "100%",
-                            padding: "14px 16px",
-                            border: `1px solid ${theme.border}`,
-                            marginBottom: "16px",
-                            fontSize: "14px",
-                            fontFamily: "'Inter', sans-serif",
-                            outline: "none",
-                            borderRadius: "4px",
-                            textAlign: "center",
-                            letterSpacing: "4px"
-                          }}
-                        />
-                        <button
-                          onClick={verifyOTP}
-                          disabled={!otp || otp.length < 6}
-                          style={{
-                            width: "100%",
-                            padding: "14px",
-                            backgroundColor: otp && otp.length >= 6 ? theme.primary : "#e5e5e5",
-                            color: otp && otp.length >= 6 ? "white" : theme.gray,
-                            border: "none",
-                            fontSize: "13px",
-                            letterSpacing: "1px",
-                            textTransform: "uppercase",
-                            cursor: otp && otp.length >= 6 ? "pointer" : "not-allowed",
-                            fontFamily: "'Inter', sans-serif",
-                            fontWeight: "500",
-                            borderRadius: "4px",
-                            transition: "all 0.3s ease"
-                          }}
-                        >
-                          Verify & Login
-                        </button>
-                      </>
-                    )}
-                    <div id="recaptcha-container"></div>
-                  </>
-                ) : (
-                  <div style={{
-                    textAlign: "center",
-                    padding: "60px 20px"
-                  }}>
-                    <div style={{
-                      width: "80px",
-                      height: "80px",
-                      borderRadius: "50%",
-                      backgroundColor: theme.cream,
-                      margin: "0 auto 20px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center"
-                    }}>
-                      <User size={36} color={theme.accent} strokeWidth={1.5} />
-                    </div>
-                    <p style={{
-                      fontSize: "18px",
-                      marginBottom: "8px",
-                      color: theme.primary
-                    }}>
-                      Welcome Back!
-                    </p>
-                    <p style={{
-                      fontSize: "14px",
-                      color: theme.gray,
-                      fontFamily: "'Inter', sans-serif",
-                      marginBottom: "24px"
-                    }}>
-                      {phone}
-                    </p>
-                    <button
-                      onClick={() => {
-                        setUser(null);
-                        setPhone("");
-                        setOtp("");
-                        setConfirmation(null);
-                      }}
-                      style={{
-                        padding: "12px 32px",
-                        backgroundColor: "white",
-                        color: theme.primary,
-                        border: `1px solid ${theme.border}`,
-                        fontSize: "12px",
-                        letterSpacing: "1px",
-                        textTransform: "uppercase",
-                        cursor: "pointer",
-                        fontFamily: "'Inter', sans-serif",
-                        fontWeight: "500",
-                        borderRadius: "4px",
-                        transition: "all 0.3s ease"
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = theme.cream;
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = "white";
-                      }}
-                    >
-                      Sign Out
-                    </button>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
-      {/* Wishlist Drawer */}
-      <AnimatePresence>
-        {wishlistOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setWishlistOpen(false)}
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: "rgba(0, 0, 0, 0.6)",
-                zIndex: 9998
-              }}
-            />
-            
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              style={{
-                position: "fixed",
-                top: 0,
-                right: 0,
-                width: "min(450px, 100vw)",
-                height: "100vh",
-                backgroundColor: "white",
-                zIndex: 9999,
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "-8px 0 24px rgba(0,0,0,0.15)"
-              }}
-            >
-              <div style={{
-                padding: "28px 32px",
-                borderBottom: `1px solid ${theme.border}`,
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                backgroundColor: theme.cream
-              }}>
-                <div>
-                  <h2 style={{
-                    fontSize: "20px",
-                    letterSpacing: "1px",
-                    fontWeight: "400",
-                    marginBottom: "4px"
-                  }}>
-                    My Wishlist
-                  </h2>
-                  <p style={{
-                    fontSize: "13px",
-                    color: theme.gray,
-                    fontFamily: "'Inter', sans-serif"
-                  }}>
-                    {wishlist.length} {wishlist.length === 1 ? 'item' : 'items'}
-                  </p>
-                </div>
-                <button
-                  onClick={() => setWishlistOpen(false)}
-                  style={{
-                    background: "white",
-                    border: `1px solid ${theme.border}`,
-                    borderRadius: "50%",
-                    width: "36px",
-                    height: "36px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer"
-                  }}
-                >
-                  <X size={18} color={theme.primary} />
-                </button>
-              </div>
-
-              <div style={{
-                flex: 1,
-                overflowY: "auto",
-                padding: "24px 32px"
-              }}>
-                {wishlist.length === 0 ? (
-                  <div style={{
-                    textAlign: "center",
-                    padding: "60px 20px"
-                  }}>
-                    <Heart 
-                      size={48} 
-                      color={theme.border} 
-                      strokeWidth={1}
-                      style={{ marginBottom: "16px" }}
-                    />
-                    <p style={{
-                      color: theme.gray,
-                      fontSize: "15px",
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Your wishlist is empty
-                    </p>
-                  </div>
-                ) : (
-                  wishlist.map((item) => (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, x: -100 }}
-                      style={{
-                        display: "flex",
-                        gap: "16px",
-                        marginBottom: "24px",
-                        paddingBottom: "24px",
-                        borderBottom: `1px solid ${theme.border}`
-                      }}
-                    >
-                      <img
-                        src={item.img}
-                        alt={item.name}
-                        style={{
-                          width: "90px",
-                          height: "120px",
-                          objectFit: "cover",
-                          backgroundColor: theme.cream,
-                          borderRadius: "4px"
-                        }}
-                      />
-                      <div style={{ flex: 1 }}>
-                        <h3 style={{
-                          fontSize: "15px",
-                          marginBottom: "6px",
-                          fontWeight: "400",
-                          letterSpacing: "0.3px"
-                        }}>
-                          {item.name}
-                        </h3>
-                        <p style={{
-                          fontSize: "15px",
-                          fontWeight: "400",
-                          marginBottom: "14px",
-                          color: theme.primary
-                        }}>
-                          ₹{item.price.toLocaleString()}
-                        </p>
-                        <div style={{ display: "flex", gap: "8px" }}>
-                          <button
-                            onClick={() => {
-                              addToCart(item);
-                              removeFromWishlist(item.id);
-                              setWishlistOpen(false);
-                              setCartOpen(true);
-                            }}
-                            style={{
-                              padding: "10px 18px",
-                              backgroundColor: theme.primary,
-                              color: "white",
-                              border: "none",
-                              fontSize: "11px",
-                              letterSpacing: "1px",
-                              textTransform: "uppercase",
-                              cursor: "pointer",
-                              fontFamily: "'Inter', sans-serif",
-                              fontWeight: "500",
-                              borderRadius: "4px",
-                              transition: "all 0.3s ease"
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = theme.accent;
-                              e.currentTarget.style.color = theme.primary;
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = theme.primary;
-                              e.currentTarget.style.color = "white";
-                            }}
-                          >
-                            Add to Cart
-                          </button>
-                          <button
-                            onClick={() => removeFromWishlist(item.id)}
-                            style={{
-                              padding: "10px 18px",
-                              backgroundColor: "white",
-                              color: theme.primary,
-                              border: `1px solid ${theme.border}`,
-                              fontSize: "11px",
-                              letterSpacing: "1px",
-                              textTransform: "uppercase",
-                              cursor: "pointer",
-                              fontFamily: "'Inter', sans-serif",
-                              fontWeight: "500",
-                              borderRadius: "4px",
-                              transition: "all 0.3s ease"
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = theme.cream;
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = "white";
-                            }}
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))
-                )}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
-                    Follow Us
-            </h4>
-            <div style={{ display: "flex", gap: "16px", marginBottom: "16px" }}>
-              <a 
-                href="https://instagram.com/your_username" 
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "white" }}
-              >
-                <Instagram size={20} />
-              </a>
-            </div>
-            <a 
-              href="mailto:navnil.commercial@gmail.com"
-              style={{
-                color: "#999",
-                fontSize: "14px",
-                textDecoration: "none"
-              }}
-            >
-              navnil.commercial@gmail.com
-            </a>
-          </div>
-        </div>
-
-        <div style={{
-          maxWidth: "1400px",
-          margin: "40px auto 0",
-          paddingTop: "24px",
-          borderTop: "1px solid #333",
-          textAlign: "center",
-          fontSize: "12px",
-          color: "#666"
-        }}>
-          © {new Date().getFullYear()} {brand.name}. All rights reserved.
-        </div>
-      </footer>
+<footer style={{
+  backgroundColor: theme.primary,
+  color: "white",
+  padding: "80px 40px 40px",  // Notice: "80px 40px 40px" (different padding)
+  marginTop: "120px"          // Notice: "120px" (different margin)
+}}>
+  <div style={{
+    maxWidth: "1400px",
+    margin: "0 auto",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+    gap: "60px",              // Notice: "60px" gap
+    marginBottom: "60px"
+  }}>
+    <div>
+      <h3 style={{
+        fontSize: "24px",      // Notice: "24px" (larger)
+        letterSpacing: "2px",
+        marginBottom: "12px",
+        fontWeight: "300"
+      }}>
+        {brand.name}
+      </h3>
+      <p style={{
+        fontSize: "11px",
+        letterSpacing: "1.5px",
+        textTransform: "uppercase",
+        color: "rgba(255,255,255,0.6)",
+        marginBottom: "20px",
+        fontFamily: "'Inter', sans-serif"
+      }}>
+        {brand.tagline}        // Notice: Has tagline
+      </p>
+      <p style={{
+        fontSize: "14px",
+        color: "rgba(255,255,255,0.7)",
+        lineHeight: "1.7",
+        fontFamily: "'Inter', sans-serif",
+        fontWeight: "300"
+      }}>
+        Exquisite artificial and AD jewellery handcrafted with love in {brand.city}. Each piece tells a story of elegance and timeless beauty.
+      </p>
     </div>
-  );
-}
-     
+
+    <div>
+      <h4 style={{
+        fontSize: "13px",
+        letterSpacing: "2px",
+        textTransform: "uppercase",
+        marginBottom: "20px",
+        fontWeight: "500",
+        fontFamily: "'Inter', sans-serif",
+        color: "rgba(255,255,255,0.9)"
+      }}>
+        Shop
+      </h4>
+      <ul style={{ listStyle: "none", padding: 0 }}>
+        {["All Jewellery", "Necklaces", "Earrings", "Bridal Collection", "New Arrivals", "Bestsellers"].map(item => (
+          <li key={item} style={{ marginBottom: "12px" }}>
+            <a 
+              href="#" 
+              onClick={(e) => {
+                e.preventDefault();
+                setCategory(item.includes("Necklace") ? "Necklace" : item.includes("Earring") ? "Earrings" : item.includes("Bridal") ? "Bridal" : "All");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              style={{
+                color: "rgba(255,255,255,0.7)",
+                textDecoration: "none",
+                fontSize: "14px",
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: "300",
+                transition: "color 0.2s"
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = theme.accent}
+              onMouseLeave={(e) => e.currentTarget.style.color = "rgba(255,255,255,0.7)"}
+            >
+              {item}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h4 style={{
+        fontSize: "13px",
+        letterSpacing: "2px",
+        textTransform: "uppercase",
+        marginBottom: "20px",
+        fontWeight: "500",
+        fontFamily: "'Inter', sans-serif",
+        color: "rgba(255,255,255,0.9)"
+      }}>
+        Customer Care
+      </h4>
+      <ul style={{ listStyle: "none", padding: 0 }}>
+        {["Contact Us", "Shipping & Returns", "Size Guide", "Care Instructions", "FAQs", "Track Order"].map(item => (
+          <li key={item} style={{ marginBottom: "12px" }}>
+            <a href="#" style={{
+              color: "rgba(255,255,255,0.7)",
+              textDecoration: "none",
+              fontSize: "14px",
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: "300",
+              transition: "color 0.2s"
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.color = theme.accent}
+            onMouseLeave={(e) => e.currentTarget.style.color = "rgba(255,255,255,0.7)"}
+            >
+              {item}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h4 style={{
+        fontSize: "13px",
+        letterSpacing: "2px",
+        textTransform: "uppercase",
+        marginBottom: "20px",
+        fontWeight: "500",
+        fontFamily: "'Inter', sans-serif",
+        color: "rgba(255,255,255,0.9)"
+      }}>
+        Connect With Us
+      </h4>
+      <div style={{ display: "flex", gap: "16px", marginBottom: "24px" }}>
+        <a 
+          href="https://instagram.com/navya_jewellery" 
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            width: "40px",
+            height: "40px",
+            borderRadius: "50%",
+            backgroundColor: "rgba(255,255,255,0.1)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "all 0.3s ease"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = theme.accent;
+            e.currentTarget.style.transform = "translateY(-3px)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.1)";
+            e.currentTarget.style.transform = "translateY(0)";
+          }}
+        >
+          <Instagram size={18} color="white" />
+        </a>
+      </div>
+      <a 
+        href="mailto:navnil.commercial@gmail.com"
+        style={{
+          color: "rgba(255,255,255,0.7)",
+          fontSize: "14px",
+          textDecoration: "none",
+          fontFamily: "'Inter', sans-serif",
+          fontWeight: "300",
+          transition: "color 0.2s",
+          display: "block",
+          marginBottom: "12px"
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.color = theme.accent}
+        onMouseLeave={(e) => e.currentTarget.style.color = "rgba(255,255,255,0.7)"}
+      >
+        navnil.commercial@gmail.com
+      </a>
+      <p style={{
+        color: "rgba(255,255,255,0.7)",
+        fontSize: "14px",
+        fontFamily: "'Inter', sans-serif",
+        fontWeight: "300"
+      }}>
+        +91 98765 43210
+      </p>
+    </div>
+  </div>
+
+  <div style={{
+    maxWidth: "1400px",
+    margin: "0 auto",
+    paddingTop: "40px",
+    borderTop: "1px solid rgba(255,255,255,0.1)",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexWrap: "wrap",
+    gap: "20px"
+  }}>
+    <p style={{
+      fontSize: "13px",
+      color: "rgba(255,255,255,0.5)",
+      fontFamily: "'Inter', sans-serif",
+      fontWeight: "300"
+    }}>
+      © {new Date().getFullYear()} {brand.name}. All rights reserved.
+    </p>
+    <div style={{
+      display: "flex",
+      gap: "24px",
+      fontSize: "13px"
+    }}>
+      <a href="#" style={{
+        color: "rgba(255,255,255,0.5)",
+        textDecoration: "none",
+        fontFamily: "'Inter', sans-serif",
+        fontWeight: "300",
+        transition: "color 0.2s"
+      }}
+      onMouseEnter={(e) => e.currentTarget.style.color = "rgba(255,255,255,0.9)"}
+      onMouseLeave={(e) => e.currentTarget.style.color = "rgba(255,255,255,0.5)"}
+      >
+        Privacy Policy
+      </a>
+      <a href="#" style={{
+        color: "rgba(255,255,255,0.5)",
+        textDecoration: "none",
+        fontFamily: "'Inter', sans-serif",
+        fontWeight: "300",
+        transition: "color 0.2s"
+      }}
+      onMouseEnter={(e) => e.currentTarget.style.color = "rgba(255,255,255,0.9)"}
+      onMouseLeave={(e) => e.currentTarget.style.color = "rgba(255,255,255,0.5)"}
+      >
+        Terms of Service
+      </a>
+    </div>
+  </div>
+</footer>
