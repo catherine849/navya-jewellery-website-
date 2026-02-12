@@ -92,89 +92,86 @@ export default function NavyaJewellery() {
     }
   ];
 
-  // Enhanced Product Data
+// Enhanced Product Data
   const products = [
     {
-  id: 1,
-  name: "Product Name",
-  price: 1499,
-  originalPrice: 1999,  // Shows discount
-  img: "https://images.unsplash.com/photo-1617038260897-41a1f14a2f59?q=80&w=800&auto=format&fit=crop",
-  category: "Necklace"
-  stock: true,
-  new: true,            // Shows "NEW" badge
-  bestseller: true,     // Shows "BESTSELLER" badge
-  rating: 4.8,          // Out of 5
-  reviews: 124,         // Number of reviews
-  description: "Stunning American Diamond necklace set with intricate detailing. Perfect for weddings and special occasions."
-}
+      id: 1,
+      name: "Elegant AD Necklace Set",
+      price: 1499,
+      originalPrice: 1999,
+      img: "https://images.unsplash.com/photo-1617038260897-41a1f14a2f59?q=80&w=800&auto=format&fit=crop",
+      category: "Necklace",
+      stock: true,
+      new: true,
+      rating: 4.8,
+      reviews: 124,
+      description: "Stunning American Diamond necklace set with intricate detailing. Perfect for weddings and special occasions."
+    },
     {
       id: 2,
       name: "Traditional Kundan Earrings",
       price: 499,
-      originalPrice: 699,  // Shows discount
+      originalPrice: 699,
       img: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=80&w=800&auto=format&fit=crop",
       category: "Earrings",
       stock: true,
-      new: true,            // Shows "NEW" badge
-      bestseller: true,     // Shows "BESTSELLER" badge
-      rating: 4.9,          // Out of 5
-      reviews: 89,         // Number of reviews
+      rating: 4.9,
+      reviews: 89,
       description: "Handcrafted Kundan earrings with traditional design. Lightweight and comfortable for all-day wear."
     },
     {
       id: 3,
       name: "Bridal Choker Set",
       price: 1999,
-      originalPrice: 2799,  // Shows discount
+      originalPrice: 2799,
       img: "https://images.unsplash.com/photo-1627295116034-7c6c1c3c3b02?q=80&w=800&auto=format&fit=crop",
       category: "Bridal",
       stock: true,
-      new: true,            // Shows "NEW" badge
-      bestseller: true,     // Shows "BESTSELLER" badge
-      rating: 5.0,          // Out of 5
-      reviews: 203,         // Number of reviews
+      bestseller: true,
+      rating: 5.0,
+      reviews: 203,
       description: "Complete bridal choker set with matching earrings. Crafted with premium quality stones and materials."
     },
     {
       id: 4,
       name: "Pearl Drop Earrings",
       price: 799,
-      originalPrice: 1099,  // Shows discount
+      originalPrice: 1099,
       img: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800&auto=format&fit=crop",
       category: "Earrings",
       stock: true,
-      rating: 4.7,          // Out of 5
-      reviews: 67,         // Number of reviews
+      new: true,
+      rating: 4.7,
+      reviews: 67,
       description: "Elegant pearl drop earrings with gold-tone finish. Perfect for both casual and formal occasions."
     },
     {
       id: 5,
       name: "Statement Temple Necklace",
       price: 2499,
-      originalPrice: 3299,  // Shows discount
+      originalPrice: 3299,
       img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=800&auto=format&fit=crop",
       category: "Necklace",
       stock: true,
-      rating: 4.9,          // Out of 5
-      reviews: 156,         // Number of reviews
+      rating: 4.9,
+      reviews: 156,
       description: "Grand temple jewelry necklace with intricate goddess motifs. A statement piece for festive celebrations."
     },
     {
       id: 6,
       name: "Bridal Jhumka Set",
       price: 1299,
-      originalPrice: 1799,  // Shows discount
+      originalPrice: 1799,
       img: "https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=800&auto=format&fit=crop",
       category: "Bridal",
       stock: true,
       bestseller: true,
-      rating: 4.8,          // Out of 5
-      reviews: 178,         // Number of reviews
+      rating: 4.8,
+      reviews: 178,
       description: "Traditional jhumka earrings with delicate pearl drops. Essential bridal accessory with timeless appeal."
     }
   ];
-
+  
   const filteredProducts = products.filter(p =>
     (category === "All" || p.category === category) &&
     p.name.toLowerCase().includes(search.toLowerCase())
