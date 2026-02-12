@@ -2543,7 +2543,7 @@ export default function NavyaJewellery() {
                          </button>
                   </motion.div>
                 ))
-              )}
+              }
             </div>
           </motion.div>
         </>
