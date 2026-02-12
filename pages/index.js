@@ -3025,16 +3025,17 @@ export default function NavyaJewellery() {
     © {new Date().getFullYear()} {brand.name}. All rights reserved.
   </p>
 </footer>
-      {/* Responsive CSS */}
-      <style jsx>{`
-        @media (min-width: 768px) {
-          .desktop-nav { display: flex !important; }
-        }
-        @media (max-width: 767px) {
-          .mobile-menu-btn { display: block !important; }
-          .quick-view-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
 
-  );
+<style jsx>{`
+  @media (min-width: 768px) {
+    .desktop-nav { display: flex !important; }
+  }
+  @media (max-width: 767px) {
+    .mobile-menu-btn { display: block !important; }
+    .quick-view-grid { grid-template-columns: 1fr !important; }
+  }
+`}</style>
+
+</div>
+);
 }
