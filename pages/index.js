@@ -2392,163 +2392,179 @@ export default function NavyaJewellery() {
               </div>
 
               {/* Wishlist Items */}
-              <div style={{
-                flex: 1,
-                overflowY: "auto",
-                padding: "24px 32px"
-              }}>
-                {wishlist.length === 0 ? (
-                  <div style={{
-                    textAlign: "center",
-                    padding: "60px 20px"
-                  }}>
-                    <Heart 
-                      size={48} 
-                      color={theme.border} 
-                      strokeWidth={1}
-                      style={{ marginBottom: "16px" }}
-                    />
-                    <p style={{
-                      color: theme.gray,
-                      fontSize: "15px",
-                      fontFamily: "'Inter', sans-serif",
-                      marginBottom: "8px"
-                    }}>
-                      Your wishlist is empty
-                    </p>
-                    <p style={{
-                      color: theme.gray,
-                      fontSize: "13px",
-                      fontFamily: "'Inter', sans-serif"
-                    }}>
-                      Save your favorite items for later
-                    </p>
-                  </div>
-                ) : (
-                  wishlist.map((item) => (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, x: -100 }}
-                      style={{
-                        display: "flex",
-                        gap: "16px",
-                        marginBottom: "24px",
-                        paddingBottom: "24px",
-                        borderBottom: `1px solid ${theme.border}`
-                      }}
-                    >
-                      <img
-                        src={item.img}
-                        alt={item.name}
-                        style={{
-                          width: "90px",
-                          height: "120px",
-                          objectFit: "cover",
-                          backgroundColor: theme.cream,
-                          borderRadius: "4px",
-                          cursor: "pointer"
-                        }}
-                        onClick={() => {
-                          setQuickViewProduct(item);
-                          setWishlistOpen(false);
-                        }}
-                      />
-                      <div style={{ flex: 1 }}>
-                        <h3 style={{
-                          fontSize: "15px",
-                          marginBottom: "6px",
-                          fontWeight: "400",
-                          letterSpacing: "0.3px"
-                        }}>
-                          {item.name}
-                        </h3>
-                        
-                        <div style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "8px",
-                          marginBottom: "12px"
-                        }}>
-                          <p style={{
-                            fontSize: "16px",
-                            fontWeight: "500",
-                            color: theme.primary
-                          }}>
-                            ₹{item.price.toLocaleString()}
-                          </p>
-                          {item.originalPrice && (
-                            <p style={{
-                              fontSize: "13px",
-                              color: theme.gray,
-                              textDecoration: "line-through"
-                            }}>
-                              ₹{item.originalPrice.toLocaleString()}
-                            </p>
-                          )}
-                        </div>
+<div
+  style={{
+    flex: 1,
+    overflowY: "auto",
+    padding: "24px 32px",
+  }}
+>
+  {wishlist.length === 0 ? (
+    <div
+      style={{
+        textAlign: "center",
+        padding: "60px 20px",
+      }}
+    >
+      <Heart
+        size={48}
+        color={theme.border}
+        strokeWidth={1}
+        style={{ marginBottom: "16px" }}
+      />
+      <p
+        style={{
+          color: theme.gray,
+          fontSize: "15px",
+          fontFamily: "'Inter', sans-serif",
+          marginBottom: "8px",
+        }}
+      >
+        Your wishlist is empty
+      </p>
+      <p
+        style={{
+          color: theme.gray,
+          fontSize: "13px",
+          fontFamily: "'Inter', sans-serif",
+        }}
+      >
+        Save your favorite items for later
+      </p>
+    </div>
+  ) : (
+    <>
+      {wishlist.map((item) => (
+        <motion.div
+          key={item.id}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, x: -100 }}
+          style={{
+            display: "flex",
+            gap: "16px",
+            marginBottom: "24px",
+            paddingBottom: "24px",
+            borderBottom: `1px solid ${theme.border}`,
+          }}
+        >
+          <img
+            src={item.img}
+            alt={item.name}
+            style={{
+              width: "90px",
+              height: "120px",
+              objectFit: "cover",
+              backgroundColor: theme.cream,
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              setQuickViewProduct(item);
+              setWishlistOpen(false);
+            }}
+          />
 
-                        <div style={{
-                          display: "flex",
-                          gap: "8px"
-                        }}>
-                          <button
-                            onClick={() => {
-                              moveToCart(item);
-                              setWishlistOpen(false);
-                            }}
-                            style={{
-                              flex: 1,
-                              padding: "10px",
-                              backgroundColor: theme.primary,
-                              color: "white",
-                              border: "none",
-                              fontSize: "11px",
-                              letterSpacing: "1.5px",
-                              textTransform: "uppercase",
-                              cursor: "pointer",
-                              fontFamily: "'Inter', sans-serif",
-                              fontWeight: "500",
-                              borderRadius: "4px",
-                              transition: "all 0.2s ease"
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = theme.accent;
-                              e.currentTarget.style.color = theme.primary;
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = theme.primary;
-                              e.currentTarget.style.color = "white";
-                            }}
-                          >
-                            Move to Cart
-                          </button>
-                          
-                          <button
-                           onClick={() => toggleWishlist(item)}
-                           style={{
-                          padding: "10px",
-                          backgroundColor: "white",
-                          border: `1px solid ${theme.border}`,
-                          borderRadius: "4px",
-                          cursor: "pointer",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          transition: "all 0.2s ease"
-                               }}
-                                 > 
-                          <X size={16} />
-                         </button>
-                  </motion.div>
-                ))
-              }
+          <div style={{ flex: 1 }}>
+            <h3
+              style={{
+                fontSize: "15px",
+                marginBottom: "6px",
+                fontWeight: "400",
+                letterSpacing: "0.3px",
+              }}
+            >
+              {item.name}
+            </h3>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginBottom: "12px",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  color: theme.primary,
+                }}
+              >
+                ₹{item.price.toLocaleString()}
+              </p>
+              {item.originalPrice && (
+                <p
+                  style={{
+                    fontSize: "13px",
+                    color: theme.gray,
+                    textDecoration: "line-through",
+                  }}
+                >
+                  ₹{item.originalPrice.toLocaleString()}
+                </p>
+              )}
             </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+
+            <div style={{ display: "flex", gap: "8px" }}>
+              <button
+                onClick={() => {
+                  moveToCart(item);
+                  setWishlistOpen(false);
+                }}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  backgroundColor: theme.primary,
+                  color: "white",
+                  border: "none",
+                  fontSize: "11px",
+                  letterSpacing: "1.5px",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: "500",
+                  borderRadius: "4px",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.accent;
+                  e.currentTarget.style.color = theme.primary;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = theme.primary;
+                  e.currentTarget.style.color = "white";
+                }}
+              >
+                Move to Cart
+              </button>
+
+              <button
+                onClick={() => toggleWishlist(item)}
+                style={{
+                  padding: "10px",
+                  backgroundColor: "white",
+                  border: `1px solid ${theme.border}`,
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                <X size={16} />
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      ))}
+    </>
+  )}
+</div>
+</AnimatePresence>
+    
 <AnimatePresence>
   {cartOpen && (
     <>
