@@ -27,20 +27,27 @@ import {
   Menu
 } from "lucide-react";
 
-/* Firebase OTP Login */
-import { initializeApp } from "firebase/app";
+/* =========================
+   Firebase OTP Login
+   ========================= */
+
+import { initializeApp, getApps } from "firebase/app";
 import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "YOUR_API_KEY",
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "YOUR_AUTH_DOMAIN",
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "YOUR_PROJECT_ID"
-};
+// Validate environment variables (fail fast)
+if (
+  !process.env.NEXT_PUBLIC_FIREBASE_API_KEY ||
+  !process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ||
+  !process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
+) {
+  throw new Error("Firebase env vars missing");
+}
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+// Firebase configuration//
+import { auth } from "@/lib/firebase";
+import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 
-/* Refined Luxury Theme - Giva Inspired */
+/* Refined Luxury Theme*/
 const theme = {
   primary: "#1a1613",
   accent: "#d4af37", // Luxe gold
@@ -234,7 +241,10 @@ export default function NavyaJewellery() {
 
   const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
   const shippingCost = subtotal >= 1499 ? 0 : 99;
-  const finalTotal = subtotal + shippingCost - (subtotal * discount);
+  const finalTotal = Math.max(
+  0,
+  subtotal + shippingCost - subtotal * discount
+);
 
   // Auto-rotate hero
   useEffect(() => {
@@ -344,25 +354,22 @@ export default function NavyaJewellery() {
       window.recaptchaVerifier = null;
     }
   };
-  
   const verifyOTP = async () => {
-    if (otp.length !== 6) {
-      alert("Please enter a valid 6-digit OTP");
-      return;
-    }
+  try {
+    const result = await confirmation.confirm(otp);
+    setUser(result.user);
 
-    try {
-      const result = await confirmation.confirm(otp);
-      setUser(result.user);
-      setAccountOpen(false);
-      setShowOtpInput(false);
-      setOtp("");
-      showNotification("Login successful!");
-    } catch (error) {
-      console.error("OTP verification error:", error);
-      alert("Invalid OTP. Please try again.");
-    }
-  };
+    window.recaptchaVerifier?.clear();
+    window.recaptchaVerifier = null;
+
+    setAccountOpen(false);
+    setShowOtpInput(false);
+    setOtp("");
+    showNotification("Login successful!");
+  } catch (error) {
+    alert("Invalid OTP. Please try again.");
+  }
+};
 
   const logout = () => {
     setUser(null);
@@ -442,7 +449,10 @@ export default function NavyaJewellery() {
         }
       };
       
-      const rzp = new window.Razorpay(options);
+      const rzp = if (!window.Razorpay) {
+        alert("Payment system not loaded. Please refresh and try again.");
+        return;
+           }
       rzp.open();
     } catch (error) {
       console.error("Payment error:", error);
@@ -2572,7 +2582,11 @@ export default function NavyaJewellery() {
           display: "flex",
           justifyContent: "space-between"
         }}>
-          <h2>Your Cart ({cart.length})</h2>
+          <h2>
+  Your Cart (
+  {cart.reduce((sum, item) => sum + item.quantity, 0)}
+  )
+</h2>
           <button onClick={() => setCartOpen(false)}>
             <X />
           </button>
